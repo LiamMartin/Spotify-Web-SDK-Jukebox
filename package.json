@@ -1,8 +1,13 @@
 {
-  "name": "Spotify Web SDK Jukebox",
+  "name": "spotify-web-sdk-jukebox",
   "private": true,
   "repository": "none",
   "version": "1.0.0",
+  "scripts": {
+    "start": "node lib/app.js"
+  },
   "dependencies": {
+    "express": "^4.18.1",
+    "socket.io": "^4.5.1"
   }
 }

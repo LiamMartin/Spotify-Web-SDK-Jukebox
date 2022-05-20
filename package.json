@@ -1,0 +1,8 @@
+{
+  "name": "Spotify Web SDK Jukebox",
+  "private": true,
+  "repository": "none",
+  "version": "1.0.0",
+  "dependencies": {
+  }
+}

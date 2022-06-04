@@ -1,0 +1,20 @@
+<div class="view-details">
+    <div class="view-detail-top colorize">
+        <div class="image-wrap">
+            <img src="{{images.[0].url}}" class="detail-image"/>
+        </div>
+
+        <div class="detail-text">
+            <h4>Album</h4>
+
+            <h3>{{name}}</h3>
+        </div>
+        {{> playButtons}}
+    </div>
+    <div class="track-table" data-uri="{{uri}}">
+        {{> trackTableTop}}
+        {{#each tracks}}
+            {{> track}}
+        {{/each}}
+    </div>
+</div>

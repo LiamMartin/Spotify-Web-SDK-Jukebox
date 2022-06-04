@@ -1,0 +1,48 @@
+{{#if loading}}
+    <div class="loader">
+        <span>Loading...</span>
+
+        <div class="spinner"></div>
+    </div>
+{{else}}
+    {{#if emptySearch}}
+        <div class="loader">
+            <span>Enter your search above...</span>
+        </div>
+    {{/if}}
+    {{#if tracks}}
+        <div class="track-table">
+            {{> trackTableTop}}
+            {{#each tracks}}
+                {{> track}}
+            {{/each}}
+        </div>
+    {{/if}}
+    {{#if artists}}
+        <div class="card">
+            <ul class="pills">
+                {{#each artists}}
+                    {{> artistPill}}
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
+    {{#if albums}}
+        <div class="card">
+            <ul class="pills">
+                {{#each albums}}
+                    {{> albumPill}}
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
+    {{#if playlists}}
+        <div class="card">
+            <ul class="pills">
+                {{#each playlists}}
+                    {{> playlistPill}}
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
+{{/if}}

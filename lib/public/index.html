@@ -1,22 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
     <title>Jukebox</title>
-
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link href="/css/app.css" rel="stylesheet">
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="/js/materialize.js"></script>
+    <script src="/js/color-thief.min.js"></script>
+    <script src="/js/async.js"></script>
+    <script src="/js/spotify-web-api.js"></script>
+    <script src="/js/handlebars-v3.0.3.js"></script>
     <script src="/js/index.js"></script>
 </head>
 <body>
-<h1>Jukebox</h1>
-<button id="togglePlay">Toggle Play</button>
-<input type="range" min="1" max="100" value="50" id="volumeControl">
+<ul class="left-nav">
+    <li>
+        <paper-button>
+            <a href="#" data-nav="browse">
+                <i class="mdi-av-album"></i>
+                <span>Browse</span>
+            </a>
+        </paper-button>
+    </li>
+    <li>
+        <paper-button>
+            <a href="#" data-nav="nowPlaying">
+                <i class="mdi-av-queue-music"></i>
+                <span>Playing</span>
+            </a>
+        </paper-button>
+    </li>
+    <li>
+        <paper-button>
+            <a href="#" class="phone-call-on">
+                <i class="mdi-notification-phone-in-talk"></i>
+                <span>Phone On</span>
+            </a>
+        </paper-button>
+    </li>
+    <li>
+        <paper-button>
+            <a href="#" class="phone-call-off">
+                <i class="mdi-communication-ring-volume"></i>
+                <span>Phone Off</span>
+            </a>
+        </paper-button>
+    </li>
+    <li>
+        <paper-button>
+            <a href="#" data-nav="settings">
+                <i class="mdi-action-settings"></i>
+                <span>Settings</span>
+            </a>
+        </paper-button>
+    </li>
+</ul>
+<header>
+    <nav>
+        <ul class="left hide-on-large-only">
+            <li>
+                <a class="mdi-navigation-menu show-sidebar-btn waves-effect waves-light white-text"></a>
+            </li>
+            <li>
+                <a class="mdi-navigation-arrow-back close-mobile-controls-btn waves-effect waves-light white-text"></a>
+            </li>
+        </ul>
+        <a class="brand-logo" href="#" data-nav="browse">Jukebox</a>
+        <ul class="right hide-on-large-only">
+            <li>
+                <a class="mdi-action-search show-search-btn waves-effect waves-light white-text"></a>
+            </li>
+            <li>
+                <a class="mdi-action-search hide-search-btn mdi-navigation-close waves-effect waves-light white-text"></a>
+            </li>
+        </ul>
+        <section class="search-wrap">
+            <i class="mdi-action-search search-icon center-align"></i>
+            <input type="text" class="search" placeholder="Search songs, artists, albums etc...">
+            <i class="mdi-navigation-close close-search-icon center-align btn-flat waves-effect"></i>
+        </section>
+    </nav>
+</header>
+<main class="fullbleed layout vertical">
 
-<button class="js-play-song" data-spotify-uri="spotify:track:04OxTCLGgDKfO0MMA2lcxv">Play: Blind Faith</button>
-<button class="js-play-song" data-spotify-uri="spotify:track:5k3jdIh7BpJaV1DntDQoSD">Play: No Problem</button>
-<button class="js-play-song" data-spotify-uri="spotify:track:0BlGTqfeWoSOd0LId5imGt">Play: Hitz</button>
-<button class="js-play-song" data-spotify-uri="spotify:track:2HOMVMnOukowkziBJZyf7o">Play: Time</button>
-<button class="js-play-song" data-spotify-uri="spotify:track:7hvbAtsi9DoWZDJ3VWcfqJ">Play: Hocus Pocus</button>
+</main>
+<aside class="search-content animate-in">
+    <ul class="tabs search-tabs">
+        <li class="tab col s3 search-tab" data-tab="track"><a href="#">Tracks</a></li>
+        <li class="tab col s3 search-tab" data-tab="album"><a href="#">Albums</a></li>
+        <li class="tab col s3 search-tab" data-tab="artist"><a href="#">Artists</a></li>
+        <li class="tab col s3 search-tab" data-tab="playlist"><a href="#">Playlists</a></li>
+    </ul>
+    <h4>Search Results</h4>
+
+    <div class="search-results"></div>
+</aside>
+<aside class="play-queue hide-on-small-and-down">
+    <ul></ul>
+</aside>
+<footer>
+    <section class="duration-wrap">
+        <input type="range" class="duration-slider">
+    </section>
+    <section class="play-control">
+        <button class="btn-flat waves-effect waves-light back mdi-av-skip-previous"></button>
+        <button class="btn-flat waves-effect waves-light play mdi-av-play-arrow"></button>
+        <button class="btn-flat waves-effect waves-light next mdi-av-skip-next"></button>
+    </section>
+    <section class="current-playing">
+        <div class="current-title"></div>
+        <div class="current-artist"></div>
+        <div class="spacer">&#x2012;</div>
+        <div class="current-album"></div>
+    </section>
+    <section class="audio-control">
+        <div class="durations">
+            <span class="current-time">00:00</span>
+            <span class="length">00:00</span>
+        </div>
+        <button class="btn-flat waves-effect waves-light shuffle-button mdi-av-shuffle"></button>
+
+        <div class="volume-wrap">
+            <i class="mdi-av-volume-up"></i>
+
+            <div class="volume-inner-wrap">
+                <input type="range" min="0" max="100" class="volume volume-slider"/>
+            </div>
+        </div>
+    </section>
+</footer>
+<section class="hide-on-med-only hide-on-large-only card mobile-current-playing">
+    <div class="current-art-wrap"><img class="current-art responsive-img"></div>
+    <div class="details-wrap">
+        <span class="current-title truncate"></span>
+        <span class="current-artist truncate"></span>
+    </div>
+    <button class="btn-flat center-align current-playing-btn waves-effect mdi-av-play-circle-outline"></button>
+</section>
+<section class="hide-on-med-only hide-on-large-only mobile-controls">
+    <div class="current-track-details">
+        <div class="text-wrap">
+            <span class="current-title truncate"></span>
+            <span class="current-artist truncate"></span>
+        </div>
+        <button class="btn-flat waves-effect mdi-action-view-headline mobile-show-queue"></button>
+    </div>
+    <div class="play-queue"></div>
+    <div class="current-art-wrap">
+        <img class="current-art">
+    </div>
+
+    <div class="durations-wrap">
+        <span class="current-time">00:00</span>
+        <span class="length">00:00</span>
+    </div>
+    <div class="controls-wrap">
+        <input type="range" class="duration-slider">
+        <div class="buttons-wrap">
+            <button class="btn-flat waves-effect back mdi-av-skip-previous"></button>
+            <button class="btn-flat waves-effect play mdi-av-play-arrow"></button>
+            <button class="btn-flat waves-effect next mdi-av-skip-next"></button>
+        </div>
+    </div>
+</section>
 </body>
 </html>

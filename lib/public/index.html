@@ -11,7 +11,33 @@
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/index.js"></script>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
+<body class="app">
+<header class="app__header"></header>
+<main class="app__main"></main>
+<aside class="app__aside"></aside>
+<footer class="app__footer footer">
+    <div class="footer__progress">
+        <div class="progress"><span style="width: 50%"></span></div>
+    </div>
+    <div class="footer__left js-track-information">
+        <div class="track">
+            <div class="track__artwork"></div>
+            <div class="track__information">
+                <div class="track__name"></div>
+                <div class="track__artists"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer__middle">
+        <button type="button" class="icon-btn js-prev"></button>
+        <button type="button" class="icon-btn icon-btn--play js-toggle-play"></button>
+        <button type="button" class="icon-btn js-next"></button>
+    </div>
+    <div class="footer__right">
+        //Volume
+    </div>
+</footer>
 </body>
 </html>

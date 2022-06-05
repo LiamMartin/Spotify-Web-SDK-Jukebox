@@ -1,0 +1,34 @@
+.app {
+    background: #17171A;
+    grid-template-areas:
+            "header header"
+            "main aside"
+            "footer footer";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto 350px;
+    grid-template-rows: 55px auto 80px;
+}
+
+.app__header {
+    grid-area: header;
+    background: #020202;
+}
+
+.app__main {
+    grid-area: main;
+    overflow: auto;
+}
+
+.app__aside {
+    grid-area: aside;
+    overflow: auto;
+    background: #0C0C0C;
+}
+
+.app__footer {
+    grid-area: footer;
+    background: #020202;
+}

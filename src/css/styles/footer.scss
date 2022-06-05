@@ -1,0 +1,25 @@
+.footer {
+    display: grid;
+    grid-template-areas: "progress progress progress" "left middle right";
+    grid-template-columns: 350px auto 350px;
+    grid-template-rows: 4px auto;
+}
+
+.footer__progress {
+    grid-area: progress;
+}
+
+.footer__left {
+    grid-area: left;
+}
+
+.footer__middle {
+    grid-area: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer__right {
+    grid-area: right;
+}

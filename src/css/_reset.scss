@@ -1,0 +1,120 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    float: none;
+    width: 100%;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, main {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    //Keep default list styling
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote {
+    &:before, &:after {
+        content: '';
+        content: none;
+    }
+}
+
+q {
+    &:before, &:after {
+        content: '';
+        content: none;
+    }
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+.clearfix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+.row {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+input, textarea {
+    -webkit-appearance: none;
+    border-radius: 0;
+    outline: none;
+    border: none;
+    margin: 0;
+    font: inherit;
+}
+
+.cke_reset_all {
+    input[type="checkbox"] {
+        -webkit-appearance: checkbox;
+    }
+
+    input[type="radio"] {
+        -webkit-appearance: radio;
+    }
+}
+
+button {
+    background: none;
+    outline: none;
+    border: 0;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    margin: 0;
+    cursor: pointer;
+}
+
+
+// Remove all animations and transitions if the user has specified reduced motion in their OS
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
